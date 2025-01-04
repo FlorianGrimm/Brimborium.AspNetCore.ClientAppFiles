@@ -2,7 +2,16 @@
 
 namespace Brimborium.AspNetCore.ClientAppFiles;
 
+/// <summary>
+/// Extension methods for the ClientAppFilesOptions
+/// </summary>
 public static class ClientAppFilesExtensions {
+
+    /// <summary>
+    /// Binds the configuration to the options
+    /// </summary>
+    /// <param name="options">the target</param>
+    /// <param name="configuration">the source</param>
     public static void Bind(this ClientAppFilesOptions options, IConfiguration configuration) {
         if (configuration.GetSection(nameof(options.ListRequestPath)).GetChildren() is { } listChild
             && listChild.Any()) {
@@ -17,8 +26,11 @@ public static class ClientAppFilesExtensions {
             }
             options.ListRequestPath = listRequestPath.ToArray();
         }
-        if (configuration.GetSection(nameof(options.DefaultFile)).Value is { } defaultFile) {
-            options.DefaultFile = defaultFile;
+        if (configuration.GetSection(nameof(options.DefaultFile)).Value is { } valueFile) {
+            options.DefaultFile = valueFile;
+        }
+        if (configuration.GetSection(nameof(options.Policy)).Value is { } valuePolicy) {
+            options.Policy = valuePolicy;
         }
     }
 }

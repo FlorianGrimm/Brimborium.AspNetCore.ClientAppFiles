@@ -1,11 +1,9 @@
-﻿using Brimborium.AspNetCore.ClientAppFiles;
-
-using Microsoft.AspNetCore.Hosting;
+﻿using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Logging;
 
-namespace Microsoft.AspNetCore.Builder;
+namespace Brimborium.AspNetCore.ClientAppFiles;
 
 internal sealed class ClientAppFilesMiddleware {
     private readonly ClientAppFilesOptions _Options;
@@ -37,49 +35,36 @@ internal sealed class ClientAppFilesMiddleware {
         var requestPath = context.Request.Path;
 
         if (context.GetEndpoint() is { } endpoint) {
-            _Logger.LogTrace("Redirect endpoint found: requestPath:{requestPath}; endpoint:{endpoint};", requestPath, endpoint.DisplayName);
+            this._Logger.LogDebug("Redirect endpoint found: requestPath:{requestPath}; endpoint:{endpoint};", requestPath, endpoint.DisplayName);
             return this._Next(context);
         }
         if (!(requestPath.Value is { } requestPathValue) || string.Equals(requestPathValue, "/", StringComparison.Ordinal)) {
             context.Request.Path = this._Options.DefaultFile;
-            _Logger.LogTrace("Redirect request: requestPath:{requestPath}; redirect:{redirect};", requestPath, context.Request.Path);
-            return _Next(context);
+            this._Logger.LogDebug("Redirect request: requestPath:{requestPath}; redirect:{redirect};", requestPath, context.Request.Path);
+            return this._Next(context);
         }
         var fileInfo = this._FileProvider.GetFileInfo(requestPathValue);
         if (fileInfo.Exists) {
-            _Logger.LogTrace("File found: requestPath:{requestPath};", requestPath);
-            return _Next(context);
+            this._Logger.LogDebug("File found: requestPath:{requestPath};", requestPath);
+            return this._Next(context);
         }
 
         foreach (var pathDocument in this._Options.ListRequestPath) {
             if (requestPath.StartsWithSegments(pathDocument.Path, StringComparison.Ordinal)) {
                 var redirectPath = pathDocument.Document;
-#if true
-
                 context.Request.Path = redirectPath;
-                _Logger.LogTrace("Redirect found: requestPath:{requestPath}; redirect:{redirect};", requestPath, redirectPath);
-                return _Next(context);
-#else
-                context.Response.Redirect(redirectPath.Value!, true, true);
-                _Logger.LogTrace("Redirect: requestPath:{requestPath}; redirect:{redirect} ", requestPath, redirectPath);
-                return Task.CompletedTask;
-#endif
+                this._Logger.LogDebug("Redirect found: requestPath:{requestPath}; redirect:{redirect};", requestPath, redirectPath);
+                return this._Next(context);
             }
             if (requestPath.StartsWithSegments(pathDocument.Path, StringComparison.OrdinalIgnoreCase, out var remaining)) {
                 var redirectPath = pathDocument.Path + remaining;
-#if true
                 context.Request.Path = redirectPath;
-                _Logger.LogTrace("Redirect found: requestPath:{requestPath}; redirect:{redirect};", requestPath, redirectPath);
-                return _Next(context);
-#else
-                context.Response.Redirect(redirectPath.Value!, true, true);
-                _Logger.LogTrace("Redirect: requestPath:{requestPath}; redirect:{redirect} ", requestPath, redirectPath);
-                return Task.CompletedTask;
-#endif
+                this._Logger.LogDebug("Redirect found: requestPath:{requestPath}; redirect:{redirect};", requestPath, redirectPath);
+                return this._Next(context);
             }
         }
 
-        return _Next(context);
+        return this._Next(context);
     }
 
     internal static bool IsGetOrHeadMethod(string method) {
