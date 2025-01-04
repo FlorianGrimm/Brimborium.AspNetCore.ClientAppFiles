@@ -49,9 +49,11 @@ namespace WebApp
             /* 2. MapClientAppFiles to map the client app files to the request path */
             app.MapClientAppFiles();
 
-            var groupAPI = app.MapGroup("/api");
+            /* 3. The js/css - assets are delivered by the StaticAssets middleware  */
+            app.MapStaticAssets();
 
             {
+                var groupAPI = app.MapGroup("/api");
                 var summaries = new[]
                 {
                     "Freezing", "Bracing", "Chilly", "Cool", "Mild", "Warm", "Balmy", "Hot", "Sweltering", "Scorching"
@@ -80,7 +82,7 @@ namespace WebApp
                 .WithName("GetUserName")
                 .RequireAuthorization();
             }
-
+            
             app.Run();
         }
     }

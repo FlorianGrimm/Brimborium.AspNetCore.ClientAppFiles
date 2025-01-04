@@ -7,6 +7,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApp", "WebApp\WebApp.csp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Brimborium.AspNetCore.ClientAppFiles", "..\src\Brimborium.AspNetCore.ClientAppFiles\Brimborium.AspNetCore.ClientAppFiles.csproj", "{74F8F932-305D-249D-B06C-24E9ED52F5DC}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClientApp", "ClientApp\ClientApp.csproj", "{66BC04B0-973C-487C-9FDC-07C0FC008511}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +23,10 @@ Global
 		{74F8F932-305D-249D-B06C-24E9ED52F5DC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{74F8F932-305D-249D-B06C-24E9ED52F5DC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{74F8F932-305D-249D-B06C-24E9ED52F5DC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{66BC04B0-973C-487C-9FDC-07C0FC008511}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{66BC04B0-973C-487C-9FDC-07C0FC008511}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{66BC04B0-973C-487C-9FDC-07C0FC008511}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{66BC04B0-973C-487C-9FDC-07C0FC008511}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

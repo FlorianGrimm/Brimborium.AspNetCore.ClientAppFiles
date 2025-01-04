@@ -11,6 +11,9 @@ namespace Microsoft.AspNetCore.Builder;
 /// Maps the client app files to the request pipeline.
 /// </summary>
 public static class ClientAppFilesBuilderExtensions {
+
+#if NET9_0_OR_GREATER
+
     private static readonly string[] _supportedHttpMethods = new[] { HttpMethods.Get, HttpMethods.Head };
 
     /// <summary>
@@ -93,9 +96,12 @@ public static class ClientAppFilesBuilderExtensions {
         return app.Build();
     }
 
+#else
+
+// Dead weight?
 
     /// <summary>
-    /// Bad fallback. Uses a middleware to redirect the path to the client app files. You have to add the StaticFiles middleware to the pipeline (app.UseStaticFiles()).
+    /// Uses a middleware to redirect the path to the client app files. You have to add the StaticFiles middleware to the pipeline (app.UseStaticFiles()).
     /// </summary>
     /// <param name="app">the app from program.cs</param>
     /// <returns>fluent this</returns>
@@ -106,5 +112,7 @@ public static class ClientAppFilesBuilderExtensions {
         app.UseMiddleware<ClientAppFilesMiddleware>(clientAppFilesOptions);
         return app;
     }
+
+#endif
 
 }

@@ -1,4 +1,10 @@
-﻿using Microsoft.AspNetCore.Hosting;
+﻿#if NET9_0_OR_GREATER
+
+#else
+
+// Dead weight?
+
+using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.FileProviders;
 using Microsoft.Extensions.Logging;
@@ -72,3 +78,4 @@ internal sealed class ClientAppFilesMiddleware {
     }
 
 }
+#endif

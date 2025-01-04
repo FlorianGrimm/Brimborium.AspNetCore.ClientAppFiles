@@ -1,0 +1,27 @@
+<div class="approot-container">
+  <nav>
+    <div>Navigation</div>
+    <ul>
+      <li><a routerLink="/">Home</a></li>
+      <li>
+        <a routerLink="/category-a" routerLinkActive="active">category-a</a>
+        <ul><a routerLink="/category-a/page-one" routerLinkActive="active">page-one</a></ul>
+        <ul><a routerLink="/category-a/page-two" routerLinkActive="active">page-two</a></ul>
+      </li>
+      <li>
+        <a routerLink="/category-b" routerLinkActive="active">category-b</a>
+        <ul>
+          <li><a routerLink="/category-b/page-three" routerLinkActive="active">page-three</a></li>
+          <li><a routerLink="/category-b/page-four" routerLinkActive="active">page-four</a></li>
+        </ul>
+      </li>
+      <li><a routerLink="/help">Help</a></li>
+    </ul>
+  </nav>
+  <div class="content-container">
+    <div>
+      Content
+    </div>
+    <router-outlet />
+  </div>
+</div>
