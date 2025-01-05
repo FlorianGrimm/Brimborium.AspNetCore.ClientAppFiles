@@ -1,0 +1,24 @@
+.approot-container{
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+.approot-header-container{
+  border: solid 1px black;
+  border-radius: 1px;
+}
+.approot-middle-container{
+  border: solid 1px black;
+  border-radius: 1px;
+  flex-grow: 1;
+  display: flex;
+
+  nav {
+    border-right: solid 1px black;
+  }
+}
+.approot-footer-container{
+  border: solid 1px black;
+  border-radius: 1px;
+
+}

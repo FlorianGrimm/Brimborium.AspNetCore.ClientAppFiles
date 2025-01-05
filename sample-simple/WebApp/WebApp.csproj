@@ -4,6 +4,7 @@
     <TargetFramework>net9.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
+    <SpaRoot>../clientapp/</SpaRoot>
   </PropertyGroup>
 
   <ItemGroup>
@@ -14,5 +15,10 @@
   <ItemGroup>
     <ProjectReference Include="..\..\src\Brimborium.AspNetCore.ClientAppFiles\Brimborium.AspNetCore.ClientAppFiles.csproj" />
   </ItemGroup>
-
+  
+  <Target Name="PublishRunWebpack" AfterTargets="ComputeFilesToPublish">
+    <Exec WorkingDirectory="$(SpaRoot)" Command="npm install" />
+    <Exec WorkingDirectory="$(SpaRoot)" Command="npm run build" />
+  </Target>
+  
 </Project>

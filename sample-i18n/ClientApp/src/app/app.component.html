@@ -1,0 +1,35 @@
+<div class="approot-container">
+  <div class="approot-header-container">Header</div>
+  <div class="approot-middle-container">
+    <nav>
+      <div>Navigation</div>
+      <ul>
+        <li><a routerLink="/" i18n="@@NavHomeTitle">Home</a></li>
+        <li>
+          <a routerLink="/category-a" routerLinkActive="active" i18n="@@NavCategoryATitle">category-a</a>
+          <ul><a routerLink="/category-a/page-one" routerLinkActive="active" i18n="@@NavCategoryAOneTitle">a one</a>
+          </ul>
+          <ul><a routerLink="/category-a/page-two" routerLinkActive="active" i18n="@@NavCategoryATwoTitle">a two</a>
+          </ul>
+        </li>
+        <li>
+          <a routerLink="/category-b" routerLinkActive="active" i18n="@@NavCategoryBTitle">category-b</a>
+          <ul>
+            <li><a routerLink="/category-b/page-three" routerLinkActive="active" i18n="@@NavCategoryBThreeTitle">b
+                three</a></li>
+            <li><a routerLink="/category-b/page-four" routerLinkActive="active" i18n="@@NavCategoryBFourTitle">b
+                four</a></li>
+          </ul>
+        </li>
+        <li><a routerLink="/help" i18n="@@NavHelpTitle">Help</a></li>
+      </ul>
+    </nav>
+    <div class="content-container">
+      <div>
+        Content
+      </div>
+      <router-outlet />
+    </div>
+  </div>
+  <div class="approot-footer-container">footer</div>
+</div>

@@ -63,7 +63,7 @@ Steps to create:
     ```diff
     - "outputPath": "dist/client-app",
     + "outputPath": "../WebApp/wwwRoot/app",
-    + "baseHref": "app",
+    + "baseHref": "/app/",
     ```
 
     b. Adjust the entry point
@@ -72,8 +72,8 @@ Steps to create:
     - "browser": "src/main.ts",
     + "main": "src/main.ts",
     ```
-    
-    The result looks like 
+
+    The result looks like:
 
     ```json
     {
@@ -96,7 +96,7 @@ Steps to create:
                 "builder": "@angular-devkit/build-angular:browser",
                 "options": {
                     "outputPath": "../WebApp/wwwRoot/app/",
-                    "baseHref": "app",
+                    "baseHref": "/app/",
                     "index": "src/index.html",
                     "main": "src/main.ts",
                     "extractLicenses": false,
