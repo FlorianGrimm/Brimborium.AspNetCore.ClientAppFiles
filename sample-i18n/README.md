@@ -75,6 +75,8 @@ Steps to create:
 
 1. Add i18n
 
+    See https://angular.dev/guide/i18n
+
     ```cmd
     ng add @angular/localize
     ```
@@ -88,32 +90,32 @@ Steps to create:
     ```
 
 
+
     The result looks like 
 
     ```json
     {
-        "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
-        "version": 1,
-        "newProjectRoot": "projects",
+        "snip": "snap",
         "projects": {
             "ClientApp": {
-            "projectType": "application",
-            "schematics": {
-                "@schematics/angular:component": {
-                "style": "scss"
-                }
-            },
-            "root": "",
-            "sourceRoot": "src",
-            "prefix": "app",
-            "architect": {
-                "build": {
-                "builder": "@angular-devkit/build-angular:browser",
-                "options": {
-                    "outputPath": "../WebApp/wwwRoot/app/",
-                    "baseHref": "app",
-                    "index": "src/index.html",
-                    "main": "src/main.ts",
-                    "extractLicenses": false,
-                    "polyfills": [
+                "snip": "snap",
+                "i18n": {
+                    "sourceLocale":"en-US",
+                    "locales": {
+                        "de-DE": "src/locale/messages.de-DE.xlf",
+                        "fr-FR": "src/locale/messages.fr-FR.xlf"
+                    }
+                },
+                "architect": {
+                    "build": {
+                        "builder": "@angular-devkit/build-angular:browser",
+                        "options": {
+                            "localize": ["en-US"],
+                            "baseHref": "/",
+                            "outputPath": "../WebApp/wwwroot/",
+                            "deleteOutputPath": true,
+                            "index": "src/index.html",
+                            "main": "src/main.ts",
+                            "extractLicenses": false,
+                            "polyfills": [
     ```
