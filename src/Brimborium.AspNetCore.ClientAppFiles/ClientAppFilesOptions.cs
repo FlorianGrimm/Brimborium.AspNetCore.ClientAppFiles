@@ -21,7 +21,7 @@ public class ClientAppFilesOptions {
     /// <summary>
     /// Resolving the "/" request path should be localized - and the ListRequestPath contains the culture specific paths.
     /// </summary>
-    public bool UseLocalizeDefaultFile { get; set; }
+    public bool UseLocalizeOnRootPath { get; set; }
 
     /// <summary>
     /// The policy name - if set, the policy is required for the request paths

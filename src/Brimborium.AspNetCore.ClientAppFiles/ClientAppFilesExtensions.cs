@@ -30,8 +30,8 @@ public static class ClientAppFilesExtensions {
         if (configuration.GetSection(nameof(options.DefaultFile)).Value is { } valueFile) {
             options.DefaultFile = valueFile;
         }
-        if (bool.TryParse(configuration.GetSection(nameof(options.UseLocalizeDefaultFile)).Value, out var valueUseLocalizeDefaultFile)) {
-            options.UseLocalizeDefaultFile = valueUseLocalizeDefaultFile;
+        if (bool.TryParse(configuration.GetSection(nameof(options.UseLocalizeOnRootPath)).Value, out var valueUseLocalizeDefaultFile)) {
+            options.UseLocalizeOnRootPath = valueUseLocalizeDefaultFile;
         }
         if (configuration.GetSection(nameof(options.Policy)).Value is { } valuePolicy) {
             options.Policy = valuePolicy;

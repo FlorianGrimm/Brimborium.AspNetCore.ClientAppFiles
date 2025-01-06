@@ -53,7 +53,7 @@ public static class ClientAppFilesBuilderExtensions {
             }
         }
 
-        if (clientAppFilesOptions.UseLocalizeDefaultFile) {
+        if (clientAppFilesOptions.UseLocalizeOnRootPath) {
             var endpointConventionBuilder = app
                 .Map("/", CreateRequestDelegateLocalize(app, clientAppFilesOptions.DefaultFile, clientAppFilesOptions.ListRequestPath, staticFileOptions))
                 .WithMetadata(new HttpMethodMetadata(_supportedHttpMethods))

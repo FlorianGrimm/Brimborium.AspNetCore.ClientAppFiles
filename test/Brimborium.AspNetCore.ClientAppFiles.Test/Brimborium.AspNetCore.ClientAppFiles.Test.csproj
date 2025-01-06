@@ -17,8 +17,8 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\src\Brimborium.AspNetCore.ClientAppFiles\Brimborium.AspNetCore.ClientAppFiles.csproj" />
-    <ProjectReference Include="..\test\TestWebApp\TestWebApp.csproj" />
+    <ProjectReference Include="..\..\src\Brimborium.AspNetCore.ClientAppFiles\Brimborium.AspNetCore.ClientAppFiles.csproj" />
+    <ProjectReference Include="..\TestWebApp\TestWebApp.csproj" />
   </ItemGroup>
 
   <ItemGroup>

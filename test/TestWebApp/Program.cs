@@ -25,13 +25,6 @@ public class Program {
             authenticationBuilder.AddNegotiate();
         }
 
-        builder.Services.AddAuthorization(options => {
-            /* 3. Set the authorization Policy - if you need*/
-            // options.FallbackPolicy = options.DefaultPolicy;
-            // - or -
-            options.AddPolicy("RequireAuthenticatedUser", policy => policy.RequireAuthenticatedUser());
-        });
-
         /* 1. AddClientAppFiles to set the options via configuration or hard wired, as here. */
         builder.Services.AddClientAppFiles(
             /* configuration: builder.Configuration.GetSection("ClientAppFiles"),*/
@@ -45,10 +38,21 @@ public class Program {
                     new PathDocument(new PathString("/en"), new PathString("/en-US/index.html")),
                     new PathDocument(new PathString("/fr"), new PathString("/fr-FR/index.html")),
                     ];
-                options.Policy = "RequireAuthenticatedUser";
-                options.UseLocalizeDefaultFile = true;
+                /* 2. Use the Policy */
+                options.Policy = "ClientAppFiles";
+                /* 3. Localize*/
+                options.UseLocalizeOnRootPath = true;
             }
             );
+
+        /* 2. Set the authorization Policy - if you need*/
+        builder.Services.AddAuthorization(options => {
+            // options.FallbackPolicy = options.DefaultPolicy;
+            // - or -
+            options.AddPolicy("ClientAppFiles", policy => policy.RequireAuthenticatedUser());
+        });
+
+        /* 3. Localize */
         builder.Services.Configure<RequestLocalizationOptions>(options => {
             var requestCultureProviders = options.RequestCultureProviders;
             var supportedCultures = new[] { "en-US", "fr-FR", "de-DE", "en", "fr", "de" };
@@ -63,13 +67,16 @@ public class Program {
         }
 
         app.UseHttpsRedirection();
+
         app.UseAuthorization();
+
+        /* 3. Localize*/
         app.UseRequestLocalization();
 
-        /* 2. MapClientAppFiles to map the client app files to the request path */
+        /* 1. MapClientAppFiles to map the client app files to the request path */
         app.MapClientAppFiles();
 
-        /* 3. The js/css - assets are delivered by the StaticAssets middleware  */
+        /* 1. The js/css - assets are delivered by the StaticAssets middleware  */
         app.MapStaticAssets();
 
         app.Run();
