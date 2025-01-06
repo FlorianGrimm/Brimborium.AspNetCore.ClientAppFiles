@@ -183,4 +183,27 @@ Complete Example:
     app.Run();
 ```
 
+## Publish
+
+Modify your webapp.csproj
+
+```xml
+  <Project Sdk="Microsoft.NET.Sdk.Web">
+
+  <PropertyGroup>
+    <SpaRoot>../clientapp/</SpaRoot>
+  </PropertyGroup>
+
+  <Target Name="PublishRunWebpack" AfterTargets="ComputeFilesToPublish">
+    <Exec WorkingDirectory="$(SpaRoot)" Command="npm install" />
+    <Exec WorkingDirectory="$(SpaRoot)" Command="npm run build" />
+  </Target>
+  
+</Project>
+```
+
+So the npm build is executed before the publish.
+
+
+
 Happy Coding

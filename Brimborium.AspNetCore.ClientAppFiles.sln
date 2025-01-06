@@ -18,6 +18,24 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestWebApp", "test\TestWebA
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Brimborium.AspNetCore.ClientAppFiles.Test", "test\Brimborium.AspNetCore.ClientAppFiles.Test\Brimborium.AspNetCore.ClientAppFiles.Test.csproj", "{D345D5F6-BF43-A968-A16A-9484A059228A}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "sample-simple", "sample-simple", "{02EA681E-C7D8-13C7-8484-4AC65E1B71E8}"
+	ProjectSection(SolutionItems) = preProject
+		sample-simple\README.md = sample-simple\README.md
+	EndProjectSection
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "sample-i18n", "sample-i18n", "{02EA681E-C7D8-13C7-8484-4AC65E1B71E8}"
+	ProjectSection(SolutionItems) = preProject
+		sample-i18n\README.md = sample-i18n\README.md
+	EndProjectSection
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApp", "sample-i18n\WebApp\WebApp.csproj", "{8AA8ED68-F9C1-35F2-A486-BB2E93AEEAE3}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClientApp", "sample-i18n\ClientApp\ClientApp.csproj", "{6DA019BB-358C-7803-90A8-BE11D51515FE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApp", "sample-simple\WebApp\WebApp.csproj", "{17662F47-E1E8-C4F5-DA77-4AD4A5A220F5}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClientApp", "sample-simple\ClientApp\ClientApp.csproj", "{BBC4BD6E-1429-760C-E24D-92B534B617BD}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -36,6 +54,22 @@ Global
 		{D345D5F6-BF43-A968-A16A-9484A059228A}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{D345D5F6-BF43-A968-A16A-9484A059228A}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{D345D5F6-BF43-A968-A16A-9484A059228A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8AA8ED68-F9C1-35F2-A486-BB2E93AEEAE3}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8AA8ED68-F9C1-35F2-A486-BB2E93AEEAE3}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8AA8ED68-F9C1-35F2-A486-BB2E93AEEAE3}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8AA8ED68-F9C1-35F2-A486-BB2E93AEEAE3}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6DA019BB-358C-7803-90A8-BE11D51515FE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6DA019BB-358C-7803-90A8-BE11D51515FE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6DA019BB-358C-7803-90A8-BE11D51515FE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6DA019BB-358C-7803-90A8-BE11D51515FE}.Release|Any CPU.Build.0 = Release|Any CPU
+		{17662F47-E1E8-C4F5-DA77-4AD4A5A220F5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{17662F47-E1E8-C4F5-DA77-4AD4A5A220F5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{17662F47-E1E8-C4F5-DA77-4AD4A5A220F5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{17662F47-E1E8-C4F5-DA77-4AD4A5A220F5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BBC4BD6E-1429-760C-E24D-92B534B617BD}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BBC4BD6E-1429-760C-E24D-92B534B617BD}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BBC4BD6E-1429-760C-E24D-92B534B617BD}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BBC4BD6E-1429-760C-E24D-92B534B617BD}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -44,6 +78,10 @@ Global
 		{77F23DAA-B7AD-4681-69A4-0AED475A9044} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 		{2D346580-5EE7-4438-B8BB-4B5445217CA3} = {73243372-DE9F-4834-8991-1DD2698E7C1F}
 		{D345D5F6-BF43-A968-A16A-9484A059228A} = {73243372-DE9F-4834-8991-1DD2698E7C1F}
+		{8AA8ED68-F9C1-35F2-A486-BB2E93AEEAE3} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+		{6DA019BB-358C-7803-90A8-BE11D51515FE} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+		{17662F47-E1E8-C4F5-DA77-4AD4A5A220F5} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
+		{BBC4BD6E-1429-760C-E24D-92B534B617BD} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {90519D30-4A69-4C98-9DEB-30FCFCFB64E4}

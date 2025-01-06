@@ -36,7 +36,7 @@ public class Program {
                     new PathDocument(new PathString("/fr"), new PathString("/fr-FR/index.html")),
                     ];
                 options.Policy = "RequireAuthenticatedUser";
-                options.UseLocalizeDefaultFile = true;
+                options.UseLocalizeOnRootPath = true;
             }
             );
         builder.Services.Configure<RequestLocalizationOptions>(options =>
