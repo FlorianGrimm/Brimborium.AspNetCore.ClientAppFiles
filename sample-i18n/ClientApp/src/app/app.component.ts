@@ -1,4 +1,4 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit, LOCALE_ID, inject } from '@angular/core';
 import { RouterOutlet, RouterLink, RouterLinkActive } from '@angular/router';
 import { WebApiService } from './service/webapi.service';
 import { Subscription, take, tap } from 'rxjs';
@@ -13,10 +13,12 @@ export class AppComponent implements OnInit, OnDestroy {
   subscription: Subscription = new Subscription();
   title = 'ClientApp sample-i18n';
   username = '';
-
+  culture = '';
   constructor(
     private webApiService: WebApiService
   ) {
+    this.onCultureChange = this.onCultureChange.bind(this);
+    this.culture = inject(LOCALE_ID);
   }
 
   ngOnInit(): void {
@@ -43,4 +45,16 @@ export class AppComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this.subscription.unsubscribe();
   }
+
+  onCultureChange(event: Event) {
+    const target = event.target as (HTMLSelectElement|null);
+    if (target){
+      const culture = target.value;
+      if (culture){
+        window.location.assign(`/${culture}`);
+      }
+    }
+    return false;
+  }
+
 }

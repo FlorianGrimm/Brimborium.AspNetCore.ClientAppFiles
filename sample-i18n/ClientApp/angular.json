@@ -27,7 +27,7 @@
             "localize": ["en-US"],
             "baseHref": "/",
             "outputPath": "../WebApp/wwwroot/",
-            "deleteOutputPath": true,
+            "deleteOutputPath": false,
             "index": "src/index.html",
             "main": "src/main.ts",
             "extractLicenses": false,

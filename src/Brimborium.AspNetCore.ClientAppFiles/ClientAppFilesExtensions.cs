@@ -18,6 +18,7 @@ public static class ClientAppFilesExtensions {
             var listRequestPath = new List<PathDocument>();
             foreach (var child in listChild) {
                 if (child.Key is { } path) {
+                    // default document is index.html
                     if (!(child.Value is { Length: > 0 } document)) {
                         document = path + "/index.html";
                     }
@@ -29,8 +30,14 @@ public static class ClientAppFilesExtensions {
         if (configuration.GetSection(nameof(options.DefaultFile)).Value is { } valueFile) {
             options.DefaultFile = valueFile;
         }
+        if (bool.TryParse(configuration.GetSection(nameof(options.UseLocalizeDefaultFile)).Value, out var valueUseLocalizeDefaultFile)) {
+            options.UseLocalizeDefaultFile = valueUseLocalizeDefaultFile;
+        }
         if (configuration.GetSection(nameof(options.Policy)).Value is { } valuePolicy) {
             options.Policy = valuePolicy;
+        }
+        if (int.TryParse(configuration.GetSection(nameof(options.Order)).Value, out var valueOrder)) {
+            options.Order = valueOrder;
         }
     }
 }

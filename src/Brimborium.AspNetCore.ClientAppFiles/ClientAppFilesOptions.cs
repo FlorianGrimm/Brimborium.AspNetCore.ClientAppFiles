@@ -19,6 +19,11 @@ public class ClientAppFilesOptions {
     public PathString DefaultFile { get; set; } = new PathString("/index.html");
 
     /// <summary>
+    /// Resolving the "/" request path should be localized - and the ListRequestPath contains the culture specific paths.
+    /// </summary>
+    public bool UseLocalizeDefaultFile { get; set; }
+
+    /// <summary>
     /// The policy name - if set, the policy is required for the request paths
     /// </summary>
     public string? Policy { get; set; }

@@ -1,6 +1,7 @@
 ﻿using Brimborium.AspNetCore.ClientAppFiles;
 
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Localization;
 using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Options;
@@ -52,7 +53,15 @@ public static class ClientAppFilesBuilderExtensions {
             }
         }
 
-        {
+        if (clientAppFilesOptions.UseLocalizeDefaultFile) {
+            var endpointConventionBuilder = app
+                .Map("/", CreateRequestDelegateLocalize(app, clientAppFilesOptions.DefaultFile, clientAppFilesOptions.ListRequestPath, staticFileOptions))
+                .WithMetadata(new HttpMethodMetadata(_supportedHttpMethods))
+                .WithOrder(order);
+            if (clientAppFilesOptions.Policy is { Length: > 0 } policy) {
+                endpointConventionBuilder.RequireAuthorization(policy);
+            }
+        } else {
             var endpointConventionBuilder = app
                 .Map("/", CreateRequestDelegate(app, clientAppFilesOptions.DefaultFile, staticFileOptions))
                 .WithMetadata(new HttpMethodMetadata(_supportedHttpMethods))
@@ -64,22 +73,15 @@ public static class ClientAppFilesBuilderExtensions {
         return app;
     }
 
-    /// <summary>
-    /// Creates a <see cref="RequestDelegate"/> that serves static files from the specified directory.
-    /// </summary>
-    /// <param name="endpoints">the builder</param>
-    /// <param name="filePath">the file path to the default html</param>
-    /// <param name="options">(Normally) not needed</param>
-    /// <returns>the RequestDelegate</returns>
-    public static RequestDelegate CreateRequestDelegate(
+    private static RequestDelegate CreateRequestDelegate(
         IEndpointRouteBuilder endpoints,
         string filePath,
         StaticFileOptions? options = null) {
-        filePath = filePath.StartsWith('/') ? (filePath) : ("/" + filePath);
+        
         var app = endpoints.CreateApplicationBuilder();
         app.Use(next => context => {
 
-            context.Request.Path = filePath;
+            context.Request.Path = EnsureStartsWithSlash(filePath);
 
             // Set endpoint to null so the static files middleware will handle the request.
             context.SetEndpoint(null);
@@ -95,6 +97,55 @@ public static class ClientAppFilesBuilderExtensions {
 
         return app.Build();
     }
+
+    private static RequestDelegate CreateRequestDelegateLocalize(
+        IEndpointRouteBuilder endpoints,
+        string defaultFilePath,
+        PathDocument[] listRequestPath,
+        StaticFileOptions? options = null) {        
+        var app = endpoints.CreateApplicationBuilder();
+        app.Use(next => context => {
+
+            // Try to find the localized path (and file).
+            bool found = false;
+            var culture = context.Features.Get<IRequestCultureFeature>()?
+                .RequestCulture?
+                .UICulture.Name;
+            if (culture is { Length: > 0 }) {
+                var culturePathLength =/* Slash */1 + culture.Length;
+                foreach (var pathDocument in listRequestPath) {
+                    if ((pathDocument.Path.Value is { } pathCulture)
+                        && pathCulture.Length == culturePathLength
+                        && pathCulture.AsSpan(1).StartsWith(culture.AsSpan())) {
+                        context.Request.Path = EnsureStartsWithSlash(pathDocument.Document);
+                        found = true;
+                        break;
+                    }
+                }
+            }
+            if (!found) {
+                context.Request.Path = EnsureStartsWithSlash(defaultFilePath);
+            }
+
+            // Set endpoint to null so the static files middleware will handle the request.
+            context.SetEndpoint(null);
+
+            return next(context);
+        });
+
+        if (options == null) {
+            app.UseStaticFiles();
+        } else {
+            app.UseStaticFiles(options);
+        }
+
+        return app.Build();
+    }
+
+    private static string EnsureStartsWithSlash(string filePath) {
+        return filePath.StartsWith('/') ? (filePath) : ("/" + filePath);
+    }
+
 
 #else
 
