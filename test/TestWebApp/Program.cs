@@ -1,22 +1,28 @@
+using System.Runtime.CompilerServices;
+
 using Brimborium.AspNetCore.ClientAppFiles;
 
 using Microsoft.AspNetCore.Authentication.Negotiate;
 
+[assembly: InternalsVisibleTo("Brimborium.AspNetCore.ClientAppFiles.Test")]
+
 namespace WebApp;
 
 public class Program {
+    internal static bool IsTest = false;
+
     public static void Main(string[] args) {
         var builder = WebApplication.CreateBuilder(args);
+
         builder.Services.AddLogging(loggingBuilder => {
             loggingBuilder.AddConfiguration(builder.Configuration.GetSection("Logging"));
             loggingBuilder.AddConsole(options => { });
         });
         builder.Services.AddOpenApi();
-        if (builder.Environment.EnvironmentName == "Test") {
-            builder.Services.AddAuthentication();
-        } else { 
-            builder.Services.AddAuthentication(NegotiateDefaults.AuthenticationScheme)
-                .AddNegotiate();
+
+        if (IsTest == false) {
+            var authenticationBuilder = builder.Services.AddAuthentication(NegotiateDefaults.AuthenticationScheme);
+            authenticationBuilder.AddNegotiate();
         }
 
         builder.Services.AddAuthorization(options => {
@@ -59,7 +65,7 @@ public class Program {
         app.UseHttpsRedirection();
         app.UseAuthorization();
         app.UseRequestLocalization();
-    
+
         /* 2. MapClientAppFiles to map the client app files to the request path */
         app.MapClientAppFiles();
 
