@@ -12,4 +12,13 @@
     <Content Remove="node_modules/**/*" />
   </ItemGroup>
 
+  <Target Name="Restore">
+    <Exec WorkingDirectory="$(MSBuildThisFileDirectory)" Command="npm install" />
+    <Message Text="npm install" Importance="high"/>
+  </Target>
+
+  <Target Name="Build">
+    <Exec WorkingDirectory="$(MSBuildThisFileDirectory)" Command="npm run build" Condition="'$(Configuration)' != 'Debug'" />
+    <Exec WorkingDirectory="$(MSBuildThisFileDirectory)" Command="npm run build:dev" Condition="'$(Configuration)' == 'Debug'" />
+  </Target>
 </Project>
